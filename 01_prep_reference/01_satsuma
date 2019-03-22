@@ -1,0 +1,6 @@
+# export the satsuma path to the location of the conda install 
+export SATSUMA2_PATH=/home/jmanthey/anaconda2/bin/
+
+# chromosemble the zosterops lateralis genome to the zebra finch reference
+cd /lustre/work/jmanthey/zosterops_genome/
+Chromosemble -t /lustre/work/jmanthey/MELTv2.1.5/reference/reference/GCF_000151805.1_Taeniopygia_guttata-3.2.4_genomic.fna -q /lustre/work/jmanthey/zosterops_genome/Zost_lateralis_ref.fa -o zosterops_chromosemble -n 23 -pseudochr 1 -s 1
