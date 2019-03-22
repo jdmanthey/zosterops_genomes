@@ -1,0 +1,5 @@
+# generate quality reports
+cd /Volumes/Genomic2017/05_zosterops_genomes/
+fastqc -o 01b_quality -t 12 01_raw_fastq/*fastq.gz
+multiqc 01b_quality
+
