@@ -6,4 +6,5 @@ cd /lustre/work/jmanthey/zosterops_genome/
 Chromosemble -t /lustre/work/jmanthey/MELTv2.1.5/reference/reference/GCF_000151805.1_Taeniopygia_guttata-3.2.4_genomic.fna -q /lustre/work/jmanthey/zosterops_genome/Zost_lateralis_ref.fa -o zosterops_chromosemble -n 23 -pseudochr 1 -s 1
 
 # download the pseudochromosomes.fasta file and modify the fasta names to C1, C2, C3, etc., remove short unplaced scaffolds
+# use r script rename_filter_satsuma_genome.r
 # transfer the renamed ref.fa to /lustre/work/jmanthey/zosterops_genome/
