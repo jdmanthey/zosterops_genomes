@@ -1,1 +1,9 @@
 # run repeatmodeler on the reorganized zosterops genome
+
+# build database of new reference for repeatmodeler
+cd /lustre/work/jmanthey/zosterops_genome
+BuildDatabase -engine ncbi -name zosterops ref.fa
+
+# run repeat modeler
+RepeatModeler -database /lustre/work/jmanthey/zosterops_genome/zosterops -engine ncbi -pa 30
+
