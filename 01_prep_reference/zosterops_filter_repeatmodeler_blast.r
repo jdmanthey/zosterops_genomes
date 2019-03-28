@@ -33,6 +33,16 @@ for(a in 1:length(unique(x[,1]))) {
 		
 		# extract the "bed" part of the blast output and add the flanking length
 		a_rep2 <- a_rep[,3:5]
+		# sort the bed file start and end positions
+		for(b in 1:nrow(a_rep2)) {
+			b_rep <- a_rep2[b,]
+			if(b_rep[1,2] > b_rep[1,3]) {
+				b_rep1 <- b_rep[1,3]
+				b_rep2 <- b_rep[1,2]
+				a_rep2[b,2] <- b_rep1
+				a_rep2[b,3] <- b_rep2
+			}
+		}
 		a_rep2[,2] <- a_rep2[,2] - flank_length - 1 # minus the extra one for the zero-based bedtools
 		a_rep2[,3] <- a_rep2[,3] + flank_length
 		
@@ -46,6 +56,6 @@ for(a in 1:length(unique(x[,1]))) {
 				a_rep2[b,3] <- b_fai[1,2]
 			}
 		}
-		write.table(a_rep2, file=paste(out_dir, "/", a_name, sep=""))
+		write.table(a_rep2, file=paste(out_dir, "/", a_name, sep=""), sep="\t", quote=F, row.names=F, col.names=F)
 	}	
 }
