@@ -1,0 +1,24 @@
+
+# build database of vertebrate repbase 
+cd /lustre/work/jmanthey/
+BuildDatabase -engine ncbi -name repbase vertebrate_repbase27Mar19.fasta
+# could also use (but not used here): makeblastdb -in vertebrate_repbase27Mar19.fasta -dbtype nucl -out repbase
+
+# rmblast the repeatmodeler output to the new repbase database
+# output fields: qseqid qlen sseqid pident length evalue
+blastn -query zosterops_genome/zosterops-families.fa -out zosterops_families_repbase.blast -task rmblastn -db repbase -evalue 1e-05 -outfmt '6 qseqid qlen sseqid pident length evalue' -perc_identity 98 -max_target_seqs 10
+
+# remove any repeatmodeler sequences that were >= 98% identical to repbase sequences
+#   -in this case, there were none
+
+# make a blast database of the zosterops genome (non-reorganized)
+cd /lustre/work/jmanthey/zosterops_genome
+makeblastdb -in Zost_lateralis_ref.fa -dbtype nucl -out zost_original
+
+# blast repeatmodeler output to zosterops genome and take top 100 hits
+# output fields: qseqid qlen sseqid sstart send pident length evalue
+blastn -query zosterops-families.fa -out zosterops_repeatmodeler_genomic.blast -task rmblastn -db zost_original -evalue 1e-20 -outfmt '6 qseqid qlen sseqid sstart send pident length evalue' -perc_identity 90 -qcov_hsp_perc 20 -max_target_seqs 100
+
+# filter the top 50 hits for each sequence (if > 50 exist) and create a bed file for extraction of genomic sequence and flanks
+# use the r script: zosterops_filter_repeatmodeler_blast.r
+
