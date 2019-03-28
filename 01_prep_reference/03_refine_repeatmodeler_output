@@ -22,3 +22,11 @@ blastn -query zosterops-families.fa -out zosterops_repeatmodeler_genomic.blast -
 # filter the top 50 hits for each sequence (if > 50 exist) and create a bed file for extraction of genomic sequence and flanks
 # use the r script: zosterops_filter_repeatmodeler_blast.r
 
+# use bedtools to extract fasta sequences from the reference genome based on the previous steps
+cd /lustre/work/jmanthey/zosterops_genome/zosterops_bed_extract
+for i in $( ls );
+do j=$i.fasta;
+bedtools getfasta -fi /lustre/work/jmanthey/zosterops_genome/Zost_lateralis_ref.fa -bed $i > $j;
+done
+
+# take all the extracted fasta files for input into geneious to make mafft alignments and develop consensus sequences
