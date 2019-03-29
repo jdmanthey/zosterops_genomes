@@ -10,5 +10,8 @@ genome_names <- genome@ranges@NAMES
 genome_names <- paste("CHR", sapply(strsplit(sapply(strsplit(as.character(genome_names), "_"), "[[", 8), ","), "[[", 1), sep="")
 genome@ranges@NAMES <- genome_names
 
+# remove two unlocalized scaffolds
+genome <- genome[1:32]
+
 # write output
 writeXStringSet(genome, file="ref.fa")
