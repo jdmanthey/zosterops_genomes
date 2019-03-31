@@ -1,2 +1,2 @@
 #Run repeatmasker to annotate where repeats are in the zosterops genome
-RepeatMasker -pa 8 -s -lib ~/RepeatMasker/Libraries/filtered_repeatmodeler_consensus.fasta ref.fa
+RepeatMasker -pa 18 -s -lib ~/RepeatMasker/Libraries/custom_library.fa ref.fa
