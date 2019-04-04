@@ -1,1 +1,8 @@
 
+Run steps in directories to get from raw data to output data tables and some of the figures (or partial figures later edited in Illustrator).
+
+01 directory = modify the published Zosterops lateralis genome for use in this project, including annotation of TEs
+
+02 directory = run fastqc and summarize with multiqc on all raw data
+
+03 directory = quality trim with bbduk, samtools to convert to bam, and then GATK for bam processing and genotyping
