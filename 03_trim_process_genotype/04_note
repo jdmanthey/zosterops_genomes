@@ -1,0 +1,5 @@
+# run the r script in step 3 to create shell scripts to submit on the HPCC
+
+# the output will be a group genotyped vcf file, one for each chromosome, including invariant sites for use in dxy
+# calculations and to help for input into programs that need to know the number of "genotypable" sites in between
+# called variants
