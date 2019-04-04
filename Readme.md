@@ -6,3 +6,7 @@ Run steps in directories to get from raw data to output data tables and some of 
 02 directory = run fastqc and summarize with multiqc on all raw data
 
 03 directory = quality trim with bbduk, samtools to convert to bam, and then GATK for bam processing and genotyping
+
+04 directory = get alignment depth statistics and plots
+
+05 directory = MELT workflow to call polymorphic transposable elements
