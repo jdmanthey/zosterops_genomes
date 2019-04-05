@@ -1,0 +1,17 @@
+Z_griseotinctus_2003067	1
+Z_japonicus_11220	2
+Z_kulambangrae_CEF484	3
+Z_kulambangrae_VGR592	4
+Z_luteirostris_PRS2615	5
+Z_metcalfi_32056	6
+Z_metcalfi_32096	7
+Z_metcalfi_34483	8
+Z_metcalfi_34869	9
+Z_murphyi_CEF838	10
+Z_rendovae_33262	11
+Z_splendidus_CEF825b	12
+Z_stresemanni_32763	13
+Z_teteparius_CES726	14
+Z_ugiensis_32795	15
+Z_ugiensis_35017	16
+Z_vellalavella_CEF819	17
