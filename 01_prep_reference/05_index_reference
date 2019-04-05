@@ -1,0 +1,3 @@
+samtools faidx ref.fa
+bwa index ref.fa
+java -jar picard.jar CreateSequenceDictionary R=/lustre/work/jmanthey/zosterops_genome/ref.fa O=/lustre/work/jmanthey/zosterops_genome/ref.fa.dict
