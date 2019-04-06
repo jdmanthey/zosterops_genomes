@@ -1,0 +1,10 @@
+# create reference files for running MELT
+cd /lustre/work/jmanthey/MELTv2.1.5/reference/02_zost_me_refs/
+
+# fasta files can only have alphanumeric characters
+
+module load intel samtools java
+for i in $( ls *fasta );
+do j=${i%.fasta};
+java -Xmx1G -jar /lustre/work/jmanthey/MELTv2.1.5/MELT.jar BuildTransposonZIP $i ./MELT_ERV.bed $j 15;
+done
