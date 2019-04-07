@@ -1,0 +1,6 @@
+# enter interactive mode on cluster
+cd /lustre/scratch/jmanthey/10_zosterops/01_bam_files
+module load intel java
+for i in $( ls *bam);
+do java -Xmx2G -jar /lustre/work/jmanthey/MELTv2.1.5/MELT.jar Preprocess -bamfile $i -h /lustre/work/jmanthey/zosterops_genome/ref.fa;
+done
