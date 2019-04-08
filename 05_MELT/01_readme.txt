@@ -11,3 +11,8 @@ In Solomon Islands' Zosterops, I looked at histograms of divergence to consensus
 retrotransposons with recent activity in birds. ERVs showed a clear peak in recent time, so I looked at what families 
 were <= 10% divergent from the consensus in ERVs. Of these, ten ERVs had more than 500 copies in the reference 
 genome at low divergence, and these were chosen as candidates for MELT polymorphism analyses.
+
+
+
+Run steps 1-3. After the bash scripts are created for running on the cluster, run batch 1, 2, 3, 4 in succession. 
+With the final vcf files from MELT, use the summarization r script to filter and create a final output file. 
