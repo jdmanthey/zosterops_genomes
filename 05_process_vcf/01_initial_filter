@@ -1,0 +1,14 @@
+# process the vcfs for each chromosome
+cd /Volumes/Genomic2017/05_zosterops_genomes/05_vcf/
+
+# remove sites missing all individuals (usually low quality alignment)
+# minimum depth of sequencing = 5 (liberal to begin with)
+# max mean depth across individuals based on coverage distributions
+# minimum quality of calls and genotype qualities of 20 
+
+for i in $( ls *g.vcf ); do
+j=${i%.g.vcf};
+vcftools --vcf $i --max-missing 0.05 --minQ 20 --minGQ 20 --minDP 5 \
+--max-meanDP 30 --recode --recode-INFO-all --out $j;
+done
+
