@@ -34,4 +34,13 @@ vcftools --vcf $i --min-alleles 2 --max-alleles 2 --mac 1 --max-missing 0.7 --re
 done
 
 
+# process original for demography tests 
+# remove indels and need a minimum coverage of 8 per site
+# at least one sampled minor allele
+
+for i in $( ls *recode.vcf ); do
+j=${i%.recode.vcf}_demography;
+vcftools --vcf $i --minDP 8 --remove-indels \
+--recode --recode-INFO-all --out $j;
+done
 
