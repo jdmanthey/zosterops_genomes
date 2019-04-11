@@ -1,0 +1,17 @@
+# use bcftools to simplify the vcf files to reduce file size, complexity, and make them easier to work with
+
+for i in $( ls *_filtered_snps.recode.vcf ); do
+j=${i%_filtered_snps.recode.vcf}_filtered_snps.simple.vcf;
+bcftools query -f '%POS\t%REF\t%ALT[\t%GT]\n' $i > $j;
+done
+
+for i in $( ls *_abba.recode.vcf ); do
+j=${i%_abba.recode.vcf}_abba.simple.vcf;
+bcftools query -f '%POS\t%REF\t%ALT[\t%GT]\n' $i > $j;
+done
+
+for i in $( ls *_phylo.recode.vcf ); do
+j=${i%_phylo.recode.vcf}_phylo.simple.vcf;
+bcftools query -f '%POS\t%REF\t%ALT[\t%GT]\n' $i > $j;
+done
+
