@@ -5,8 +5,8 @@ cd /Volumes/Genomic2017/05_zosterops_genomes/05_vcf/
 # keep only bi- or tri-allelic states
 
 for i in $( ls *recode.vcf ); do
-j=${i%.recode.vcf}_filtered;
-vcftools --vcf $i --min-alleles 2 --max-alleles 3 --mac 1 \
+j=${i%.recode.vcf}_filtered_snps;
+vcftools --vcf $i --min-alleles 2 --max-alleles 3 --remove-indels --mac 1 \
  --recode --recode-INFO-all --out $j;
 done
 
@@ -14,21 +14,23 @@ done
 # process original in a different way to retain only sites with less than 30% missing data
 # but still keeping invariant sites for phylogenetic analyses
 # this required 12/17 individuals to be genotyped minimum per site to keep it
+# also remove indels
 
 for i in $( ls *recode.vcf ); do
 j=${i%.recode.vcf}_phylo;
-vcftools --vcf $i --max-missing 0.7 --recode --recode-INFO-all --out $j;
+vcftools --vcf $i --max-missing 0.7 --remove-indels --recode --recode-INFO-all --out $j;
 done
 
 
-# re-process the phylo vcfs (immediately above) to remove invariant sites
+# process original again in different way including minimizing missing data and removing invariant sites
 # for ABBA / BABA tests
 # maximum number of alleles = 2 (2 alleles used in ABBA / BABA test)
 # at least one sampled minor allele
 
-for i in $( ls *phylo.recode.vcf ); do
-j=${i%phylo.recode.vcf}abba;
-vcftools --vcf $i --min-alleles 2 --max-alleles 2 --mac 1 --recode --recode-INFO-all --out $j;
+for i in $( ls *recode.vcf ); do
+j=${i%.recode.vcf}_abba;
+vcftools --vcf $i --min-alleles 2 --max-alleles 2 --mac 1 --max-missing 0.7 --remove-indels \
+--recode --recode-INFO-all --out $j;
 done
 
 
