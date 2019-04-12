@@ -36,7 +36,6 @@ done
 
 # process original for demography tests 
 # remove indels and need a minimum coverage of 8 per site
-# at least one sampled minor allele
 
 for i in $( ls *recode.vcf ); do
 j=${i%.recode.vcf}_demography;
