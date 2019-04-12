@@ -15,3 +15,8 @@ j=${i%_phylo.recode.vcf}_phylo.simple.vcf;
 bcftools query -f '%POS\t%REF\t%ALT[\t%GT]\n' $i > $j;
 done
 
+for i in $( ls *_demography.recode.vcf ); do
+j=${i%_demography.recode.vcf}_demography.simple.vcf;
+bcftools query -f '%POS\t%REF\t%ALT[\t%GT]\n' $i > $j;
+done
+
