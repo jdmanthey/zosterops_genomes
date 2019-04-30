@@ -35,6 +35,7 @@ for(a in 1:length(chromosomes)) {
 		for(c in 1:length(test_names)) {
 			if(a == 1 & b == 1) {
 				write(c("chromosome", "start", "end", "window", "ind1", "ind2", "ind3", "n_snps", "d", "z_score"), file=test_names[c], ncolumns=10, sep="\t")
+				write(c(as.character(a_windows[b,]), as.character(b_rep[c,])), file=test_names[c], ncolumns=10, sep="\t", append=T)
 			} else {
 				write(c(as.character(a_windows[b,]), as.character(b_rep[c,])), file=test_names[c], ncolumns=10, sep="\t", append=T)
 			}
@@ -42,4 +43,14 @@ for(a in 1:length(chromosomes)) {
 	}
 }
  
+
+
+
+
+
+
+
+
+
+
 
