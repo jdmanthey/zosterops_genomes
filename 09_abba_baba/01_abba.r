@@ -1,7 +1,7 @@
 # make sure output directory written already 
-# in hpcc : mkdir output
+# in hpcc script: mkdir output
 
-abba_kulamb_murphyi <- function(xxx, output_number) {
+abba_baba_test <- function(xxx, output_number) {
 	# read in vcf window
 	x <- read.table(xxx, sep="\t", stringsAsFactors=F)
 	
@@ -16,16 +16,89 @@ abba_kulamb_murphyi <- function(xxx, output_number) {
 	"Z_metcalfi_32096", "Z_metcalfi_34483", "Z_metcalfi_34869")
 	
 	# set up names of taxa for the tests
+	# all taxonomic groupings are setup to search for an overabundance of the ABBA pattern
+	# i.e., gene flow between P2 and P3
 	abba_inds <- list()
+	
 	#Z_griseotinctus_2003067, Z_murphyi_CEF838, Z_kulambangrae_VGR592
 	abba_inds[[1]] <- c(1, 2, 12)
-	# Z_splendidus_CEF825b, Z_kulambangrae_VGR592, Z_murphyi_CEF838
-	abba_inds[[2]] <- c(4, 12, 2)
-	# Z_griseotinctus_2003067, Z_murphyi_CEF838, Z_kulambangrae_CEF484
-	abba_inds[[3]] <- c(1, 2, 11)
-	#Z_splendidus_CEF825b, Z_kulambangrae_CEF484, Z_murphyi_CEF838
-	abba_inds[[4]] <- c(4, 11, 2)
 	
+	# Z_griseotinctus_2003067, Z_murphyi_CEF838, Z_kulambangrae_CEF484
+	abba_inds[[2]] <- c(1, 2, 11)
+	
+	#Z_ugiensis_32795, Z_ugiensis_35017, Z_stresemanni_32763
+	abba_inds[[3]] <- c(7, 8, 5)
+
+	#Z_ugiensis_35017, Z_ugiensis_32795, Z_stresemanni_32763
+	abba_inds[[4]] <- c(8, 7, 5)
+	
+	#Z_stresemanni_32763, Z_metcalfi_34483, Z_ugiensis_32795
+	abba_inds[[5]] <- c(5, 16, 7)
+	
+	#Z_stresemanni_32763, Z_metcalfi_34869, Z_ugiensis_32795
+	abba_inds[[6]] <- c(5, 17, 7)
+	
+	#Z_metcalfi_32056, Z_metcalfi_34869, Z_stresemanni_32763
+	abba_inds[[7]] <- c(14, 17, 5)
+
+	#Z_metcalfi_32056, Z_metcalfi_34483, Z_stresemanni_32763
+	abba_inds[[8]] <- c(14, 16, 5)
+	
+	#Z_teteparius_CES726, Z_splendidus_CEF825b, Z_kulambangrae_CEF484
+	abba_inds[[9]] <- c(6, 4, 11)
+	
+	#Z_teteparius_CES726, Z_splendidus_CEF825b, Z_kulambangrae_VGR592
+	abba_inds[[10]] <- c(6, 4, 12)	
+	
+	#Z_rendovae_33262, Z_teteparius_CES726, Z_kulambangrae_CEF484
+	abba_inds[[11]] <- c(3, 6, 11)
+	
+	#Z_rendovae_33262, Z_teteparius_CES726, Z_kulambangrae_VGR592
+	abba_inds[[12]] <- c(3, 6, 12)	
+		
+	#Z_teteparius_CES726, Z_rendovae_33262, Z_kulambangrae_CEF484
+	abba_inds[[13]] <- c(6, 3, 11)
+	
+	#Z_teteparius_CES726, Z_rendovae_33262, Z_kulambangrae_VGR592
+	abba_inds[[14]] <- c(6, 3, 12)	
+	
+	#Z_splendidus_CEF825b, Z_kulambangrae_CEF484, Z_luteirostris_PRS2615 
+	abba_inds[[15]] <- c(4, 11, 13)
+	
+	#Z_splendidus_CEF825b, Z_kulambangrae_VGR592, Z_luteirostris_PRS2615 
+	abba_inds[[16]] <- c(4, 12, 13)	
+	
+	#Z_splendidus_CEF825b, Z_kulambangrae_CEF484, Z_vellalavella_CEF819 
+	abba_inds[[17]] <- c(4, 11, 9)
+	
+	#Z_splendidus_CEF825b, Z_kulambangrae_VGR592, Z_vellalavella_CEF819 
+	abba_inds[[18]] <- c(4, 12, 9)	
+	
+	#Z_stresemanni_32763, Z_metcalfi_32056, Z_kulambangrae_CEF484 
+	abba_inds[[19]] <- c(5, 14, 11)	
+	
+	#Z_stresemanni_32763, Z_metcalfi_32096, Z_kulambangrae_CEF484 
+	abba_inds[[20]] <- c(5, 15, 11)	
+
+	#Z_stresemanni_32763, Z_metcalfi_34483, Z_kulambangrae_CEF484 
+	abba_inds[[21]] <- c(5, 16, 11)	
+
+	#Z_stresemanni_32763, Z_metcalfi_34869, Z_kulambangrae_CEF484 
+	abba_inds[[22]] <- c(5, 17, 11)	
+
+	#Z_stresemanni_32763, Z_metcalfi_32056, Z_kulambangrae_VGR592 
+	abba_inds[[23]] <- c(5, 14, 12)	
+	
+	#Z_stresemanni_32763, Z_metcalfi_32096, Z_kulambangrae_VGR592 
+	abba_inds[[24]] <- c(5, 15, 12)	
+
+	#Z_stresemanni_32763, Z_metcalfi_34483, Z_kulambangrae_VGR592 
+	abba_inds[[25]] <- c(5, 16, 12)	
+
+	#Z_stresemanni_32763, Z_metcalfi_34869, Z_kulambangrae_VGR592 
+	abba_inds[[26]] <- c(5, 17, 12)	
+
+		
 	# write initial output file
 	write(paste("ind1", "ind2", "ind3", "n_snps", "d", "z-score", sep="\t"), file=paste("output/abba_", output_number, ".txt", sep=""), ncolumns=6)
 	
@@ -118,6 +191,29 @@ rand_geno <- function(xxxx) {
 find_biallelic <- function(xxxx) {
 	return(length(unique(xxxx[4:6])) > 1)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
