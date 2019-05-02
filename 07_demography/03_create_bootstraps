@@ -1,0 +1,10 @@
+cd ~/Desktop/msmc/
+
+# run the msmc utility script for each directory to create bootstrap replicates
+
+for i in $( echo Z*/ ); do 
+cd $i;
+../multihetsep_bootstrap.py -n 20 -s 1000000 --chunks_per_chromosome 30 --nr_chromosomes 31 \
+--seed 324324 bootstrap *txt;
+cd ..;
+done
