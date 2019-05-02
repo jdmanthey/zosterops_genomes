@@ -14,6 +14,7 @@
 
 for i in $( echo Z*/ ); do
 cd $i;
-../msmc2_linux64bit -o $i_output -i 20 -t 6 -m 0.002166257 -p 1*2+20*1+1*2+1*3 *txt;
+../msmc2_linux64bit -o ${i%/}_output -i 20 -t 6 -m 0.002166257 -p 1*2+20*1+1*2+1*3 *txt;
 cd ../;
 done
+
