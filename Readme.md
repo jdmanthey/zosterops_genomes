@@ -10,3 +10,13 @@ Run steps in directories to get from raw data to output data tables and some of 
 04 directory = get alignment depth statistics and plots
 
 05 directory = MELT workflow to call polymorphic transposable elements
+
+05 directory = genotype all individuals using GATK
+
+06 directory = subset genome into 50kbp segments and estimate gene trees from each
+
+07 directory = demographic analyses in MSMC
+
+08 directory = estimate observed heterozygosity and runs of homozygosity
+
+09 directory = abba/baba (d statistic) tests
