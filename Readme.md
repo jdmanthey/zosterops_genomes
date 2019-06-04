@@ -11,7 +11,7 @@ Run steps in directories to get from raw data to output data tables and some of 
 
 05 directory = MELT workflow to call polymorphic transposable elements
 
-05 directory = genotype all individuals using GATK
+05 directory = filter all vcf files
 
 06 directory = subset genome into 50kbp segments and estimate gene trees from each
 
