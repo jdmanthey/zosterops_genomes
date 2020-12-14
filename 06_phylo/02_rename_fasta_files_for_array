@@ -1,7 +1,0 @@
-# rename the samples for compatability with the cluster array jobs
-
-cd /Volumes/Genomic2017/05_zosterops_genomes/10_gene_trees/zosterops_fasta
-while read -r name1 name2; do
-  mv $name1 $name2
-done < zost_fasta_rename.txt
-
