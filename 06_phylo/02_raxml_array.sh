@@ -10,7 +10,7 @@
 #$ -P quanah
 #$ -l h_rt=20:00:00
 #$ -l h_vmem=8G
-#$ -t 1-20237
+#$ -t 1-20259
 
 input_file=$( head -n${SGE_TASK_ID} helper_fasta.txt | tail -n1 )
 
