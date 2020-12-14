@@ -14,6 +14,6 @@ source activate rohan
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/jmanthey/anaconda2/envs/rohan/lib/
 
-/lustre/work/jmanthey/rohan/src/rohan --tstv 3.904 --size 50000 --auto 01_scaffolds.txt -t 8 -o ${SGE_TASK_ID} \
+/lustre/work/jmanthey/rohan/src/rohan --tstv 2.2302 --size 50000 --auto 01_scaffolds.txt -t 8 -o ${SGE_TASK_ID} \
 /lustre/work/jmanthey/zosterops_genome/ref.fa \
 /lustre/scratch/jmanthey/10_zosterops/01_bam_files/${SGE_TASK_ID}_final.bam
