@@ -8,7 +8,7 @@
 #$ -P quanah
 #$ -l h_rt=48:00:00
 #$ -l h_vmem=8G
-#$ -t 1:20296
+#$ -t 1:40569
 
 input_array=$( head -n${SGE_TASK_ID} window_list.txt | tail -n1 )
 
