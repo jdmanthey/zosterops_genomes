@@ -8,7 +8,7 @@ options(scipen=999)
 	ref_index <- read.table("zost_ref.fai", stringsAsFactors=F)
 	
 	# define window size
-	window_size <- 50000
+	window_size <- 25000
 	
 	# make directories
 	dir.create(directory_name)
