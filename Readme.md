@@ -1,22 +1,21 @@
 
 Run steps in directories to get from raw data to output data tables and some of the figures (or partial figures later edited in Illustrator).
 
-01 directory = modify the published Zosterops lateralis genome for use in this project, including annotation of TEs
+01_prep_reference = modify the published Zosterops lateralis genome for use in this project, including annotation of TEs
 
-02 directory = run fastqc and summarize with multiqc on all raw data
+02_qual_stats = run fastqc and summarize with multiqc on all raw data
 
-03 directory = quality trim with bbduk, samtools to convert to bam, and then GATK for bam processing and genotyping
+03_trim_process_genotype = quality trim with bbduk, samtools to convert to bam, and then GATK for bam processing and genotyping
 
-04 directory = get alignment depth statistics and plots
+04_depth = get alignment depth statistics and plots
 
-05 directory = MELT workflow to call polymorphic transposable elements
+05_MELT = MELT workflow to call polymorphic transposable elements
 
-05 directory = filter all vcf files
+05_process_vcf = filter all vcf files, make fasta files for phylogenomics, window calculations, summarize diversity and ROH
 
-06 directory = subset genome into 50kbp segments and estimate gene trees from each
+06_phylo = phylogenomics of windowed fasta files
 
-07 directory = demographic analyses in MSMC
+07_demography = demographic analyses in MSMC, plotting, and calculating pop. sizes
 
-08 directory = estimate observed heterozygosity and runs of homozygosity
+08_island_size = summarize and plot relationships of island size and demography and genomic diversity
 
-09 directory = abba/baba (d statistic) tests
