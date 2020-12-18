@@ -1,10 +1,11 @@
-# list all zosterops output directories
-x_files <- list.files(pattern="Z_*")
+# list all zosterops bootstrap 1 files (to get names of all files)
+x_files <- list.files(pattern="*b1.final.txt")
+x_files_base <- sapply(strsplit(x_files, "_b1"), "[[", 1)
 
 # define parameters
-mu <- 3.16e-9
-gen <- 0.5
-min_age <- 1000
+gen <- 1
+mu <- 3.16e-9 * gen # needs to be per generation
+min_age <- 000
 max_age <- 500000
 plotting_age_range <- 1000 # years for x axis
 
@@ -12,15 +13,14 @@ plotting_age_range <- 1000 # years for x axis
 # loop through each output directory
 output <- list()
 output_bootstraps <- list()
-for(a in 1:length(x_files)) {
-	# identify bootstrap directories
-	a_files <- list.files(x_files[a], pattern="bootstrap*", full.names=T)
-	# identify main output file
-	a_main <- list.files(x_files[a], pattern="*final.txt", full.names=T)
-	# get names of all bootstrap replicates
-	a_list <- c()
-	a_bootstraps <- list.files(a_files, pattern="*final.txt", full.names=T)
+for(a in 1:length(x_files_base)) {
 	
+	# identify main output file
+	a_main <- paste(x_files_base[a], ".final.txt", sep="")	
+	
+	# identify bootstrap outputs
+	a_bootstraps <- paste(x_files_base[a], "_b", seq(from=1, to=10, by=1), ".final.txt", sep="")
+
 	# read in main file
 	a_rep <- read.table(a_main, sep="\t", header=T)
 	# rearrange main file for plotting lines
@@ -33,7 +33,7 @@ for(a in 1:length(x_files)) {
 	}
 	a_rep <- a_rep2
 	# scale by mutation rate
-	a_rep[,1] <- a_rep[,1] / mu * gen
+	a_rep[,1] <- a_rep[,1] / mu #don't multiply by generation because mu is in change per year
 	a_rep[,2] <- (1 / a_rep[,2]) / (2 * mu)
 	# remove very young and old time frames prone to error
 	a_rep <- a_rep[a_rep[,1] >= min_age & a_rep[,1] <= max_age,]
@@ -56,7 +56,7 @@ for(a in 1:length(x_files)) {
 		}
 		b_rep <- b_rep2
 		# scale by mutation rate
-		b_rep[,1] <- b_rep[,1] / mu * gen
+		b_rep[,1] <- b_rep[,1] / mu #don't multiply by generation because mu is in change per year
 		b_rep[,2] <- (1 / b_rep[,2]) / (2 * mu)
 		# remove very young and old time frames prone to error
 		b_rep <- b_rep[b_rep[,1] >= min_age & b_rep[,1] <= max_age,]
@@ -74,7 +74,7 @@ par(mar=c(1,1,2,0.2))
 for(a in 1:length(output)) {
 	plot_name1 <- paste("Z.", sapply(strsplit(x_files[a], "_"), "[[", 2))
 	plot_name2 <- sapply(strsplit(x_files[a], "_"), "[[", 3)
-	plot(c(-1,1), xlim=c(10, 300), ylim=c(0,1300), pch=19, cex=0.01, log="x", xlab="", ylab="", main="", xaxt="n", yaxt="n")
+	plot(c(-1,1), xlim=c(20, 350), ylim=c(0,1300), pch=19, cex=0.01, log="x", xlab="", ylab="", main="", xaxt="n", yaxt="n")
 	title(main=bquote(italic(.(plot_name1)) ~ .(plot_name2)), adj=0,line=0.5)
 	if(a == 1 | a == 6 | a == 11) {
 		axis(side=2, at=c(0, 200, 400, 600, 800, 1000, 1200), labels=FALSE)
@@ -93,3 +93,33 @@ for(a in 1:length(output)) {
 	}
 	lines(output[[a]][,1], output[[a]][,2], col=a_col, lwd=3)
 }
+
+current_pop <- c()
+for(a in 1:length(output)) {
+	current_pop <- c(current_pop, output[[a]][1,2])
+}
+
+# harmonic mean of pop sizes from most recent to 200k years ago
+harmonic_pop <- c()
+for(a in 1:length(output)) {
+	out_rep <- output[[a]]
+	
+	# define time series
+	time_series <- seq(from=as.integer(out_rep[2,1])+1, to=200, by=1)
+	# time series pops
+	time_pops <- c()
+	for(b in 1:length(time_series)) {
+		time_pops <- c(time_pops, out_rep[time_series[b] < out_rep[,1],][1,2])
+	}
+	# harmonic mean of this individual
+	harm_rep <- length(time_pops) / sum((1 / time_pops))
+	
+	# add to output element
+	harmonic_pop <- c(harmonic_pop, harm_rep)
+}
+
+harmonic_pop <- data.frame(id=as.character(x_files_base), current_pop=as.numeric(current_pop), harmonic_pop=as.numeric(harmonic_pop))
+harmonic_pop
+
+
+
