@@ -27,29 +27,34 @@ write.table(output, file="zost_het.txt", sep="\t", quote=F, row.names=F)
 
 # plot diversity across the genome for each individual (those from Solomon Islands)
 x <- read.table("window_heterozygosity.txt", sep="\t", stringsAsFactors=F, header=T)
+x <- x[x$number_sites > 0, ]
 
 inds <- unique(x[,1])
 inds <- inds[inds != "Z_griseotinctus_2003067" & inds != "Z_japonicus_11220"]
+inds <- sort(inds)
 
 # list of chromosomes
 chr <- unique(x$chr)
-# reorder (w/o 4A again)
-chr <- chr[c(10,11,12,22,23,24,26,27,28,29,1,2,3,4,5,6,7,8,9,13,14,15,16,17,18,19,20,21,31,32)]
+# all chromsomes at least 2Mbp
+# reorder (w/o 4A  or Z again)
+chr <- chr[c(10,11,22,23,24,26,27,28,29,1,2,3,4,5,6,7,8,9,13,14,15,16,17,19,20,21)]
 
 
 # define window size from file
 window_size <- x[1,6] - x[1,5] + 1
 # define number of windows for line plots
-num_windows <- 10
+num_windows <- 80
 
 par(mfrow=c(3,5))
-par(mar=c(0,0,0,0))
+par(mar=c(0,0,1,0))
 
 
 # loop for each individual
 for(a in 1:length(inds)) {
 	a_rep <- x[x[,1] == inds[a],]
-	
+	plot_name1 <- paste("Z.", sapply(strsplit(inds[a], "_"), "[[", 2))
+	plot_name2 <- sapply(strsplit(inds[a], "_"), "[[", 3)
+
 	# reorder by chromosome and position
 	new_a_rep <- c()
 	for(b in 1:length(chr)) {
@@ -72,7 +77,7 @@ for(a in 1:length(inds)) {
 		chr_polygons[[d]] <- rbind(c(a1, 0), c(a2, 0), c(a2, 0.03), c(a1, 0.03), c(a1, 0))
 	}
 	
-	plot(c(-1,-1), ylim=c(0,0.03), xlim=c(1, nrow(new_a_rep)), xaxt="n", yaxt="n", col="white", bty="n", cex.axis=1.1, cex.lab=1.3, ylab="")
+	plot(c(-1,-1), ylim=c(0,0.015), xlim=c(1, nrow(new_a_rep)), xaxt="n", yaxt="n", col="white", bty="n", cex.axis=1.1, cex.lab=1.3, ylab="")
 	odd <- 0
 	for(d in 1:length(chr_polygons)) {
 		if(odd == 1) {
@@ -100,11 +105,20 @@ for(a in 1:length(inds)) {
 		scaffold <- c(scaffold, new_a_rep[x_axis_rep[d],4])
 	}
 	
+	# add horizontal lines at 0, 0.005, 0.01, and 0.015
+	abline(h=0, lwd=0.2, lty=2)
+	abline(h=0.005, lwd=0.2, lty=2)
+	abline(h=0.01, lwd=0.2, lty=2)
+	abline(h=0.015, lwd=0.2, lty=2)
+	
+	# add sample name
+	title(main=bquote(italic(.(plot_name1)) ~ .(plot_name2)), adj=0,line=0.5)
+	
 	# plot each scaffold at a time (so lines don't connect between scaffolds)
 	for(d in 1:length(unique(scaffold))) {
 		a_rep <- cbind(x_axis_rep, y_axis_rep, scaffold)
 		a_rep <- a_rep[a_rep[,3] == unique(scaffold)[d], ]
-		lines(a_rep[,1:2], lwd=1.2, col="navyblue")
+		lines(a_rep[,1:2], lwd=0.5, col="navyblue")
 	}
 
 }
