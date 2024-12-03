@@ -19,3 +19,5 @@ Run steps in directories to get from raw data to output data tables and some of 
 
 08_island_size = summarize and plot relationships of island size and demography and genomic diversity
 
+09_plotting_correlations_2024.r = updated plotting and analyses in 2024 (by Ethan Gyllenhaal)
+
